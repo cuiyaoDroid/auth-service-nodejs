@@ -1,0 +1,24 @@
+{
+    "name": "com.fcloud.auth-service-nodejs",
+    "description": "a fake server for using rongcloud sdk.",
+    "keywords": ["rongcloud", "server"],
+    "author": "stirp",
+    "version": "14.04.01",
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://raw.githubusercontent.com/stirp/auth-service-nodejs/master/LICENSE"
+    }],
+    "dependencies": {
+        "sqlite3": "2.2.3"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "main": "node server.js",
+    "homepage": "https://github.com/stirp/auth-service-nodejs",
+    "bugs": "https://github.com/stirp/auth-service-nodejs/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stirp/auth-service-nodejs.git"
+    }
+}
