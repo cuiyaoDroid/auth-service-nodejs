@@ -1,7 +1,7 @@
 {
     "appKey":"",
     "appSecret":"",
-    "apiHost":"navi.rongcloud.io",
+    "apiHost":"auth.cn.rong.io",
     "apiPort":"9000",
     "sqliteMem":false,
     "sqlitedb":"db.db",

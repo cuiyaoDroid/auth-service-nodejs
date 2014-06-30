@@ -60,7 +60,7 @@ function getToken(userId,userName,userPortrait,email,deviceId,res,req) {
 		path: '/reg.json',
 		method: 'POST',
 		headers: {
-			'appId': conf.appKey,
+			'appKey': conf.appKey,
 			'appSecret': conf.appSecret,
 			'Content-Type': 'application/x-www-form-urlencoded',
 			'Content-Length': post_data.length
