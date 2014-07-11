@@ -41,7 +41,7 @@ function authUser(id,name,portrait,deviceid,res,req){
 			'appKey': conf.appKey,
 			'appSecret': conf.appSecret,
 			'Content-Type': 'application/x-www-form-urlencoded',
-			'Content-Length': post_data.length
+			'Content-Length': Buffer.byteLength(post_data,'utf8')
 		}
 	};
 
@@ -60,6 +60,7 @@ function authUser(id,name,portrait,deviceid,res,req){
 	});
 
 	post_req.on('error', function(e) {
+        req.finish = true;
 		console.log('problem with request: ' + e.message);
 		res.writeHead(500,{'Content-Type': 'text/plain','Content-Length': e.message.length});
 		res.end(e.message);
