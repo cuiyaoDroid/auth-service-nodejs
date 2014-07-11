@@ -8,9 +8,6 @@
         "type": "MIT",
         "url": "https://raw.githubusercontent.com/stirp/auth-service-nodejs/master/LICENSE"
     }],
-    "dependencies": {
-        "sqlite3": "2.2.3"
-    },
     "engines": {
         "node": ">=0.10.0"
     },
