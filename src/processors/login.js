@@ -48,8 +48,8 @@ function getToken(userId,userName,userPortrait,email,deviceId,res,req) {
 	// Build the post string from an object
 	var post_data = qs.stringify({
 		'userId' : userId,
-		'userName': userName,
-		'userPortrait': userPortrait,
+		'name': userName,
+		'portraitUri': userPortrait,
 		'deviceId': deviceId
 	});
 
