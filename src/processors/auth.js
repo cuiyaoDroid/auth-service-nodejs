@@ -1,5 +1,6 @@
 var qs = require('querystring');
 
+//输入参数：id,name,portraitUri,deviceid，用于交换token
 function process(req,res,db){
     var finish = false;
     var body = '';
@@ -8,49 +9,26 @@ function process(req,res,db){
     });
     req.on('end', function () {
         var postBody = qs.parse(body);
-        if (postBody.email == null || postBody.password == null || postBody.deviceid == null){
+        if (postBody.id == null || postBody.name == null || postBody.deviceid == null || postBody.portraitUri == null){
             res.writeHead(403,{'Content-Type': 'text/plain','Content-Length': "Missing parameter.".length});
             res.end("Missing parameter.");
             console.log("Missing parameter.");
             return;
         }
-        loginUser(postBody.email,postBody.password,postBody.deviceid,db,res,req);
+        authUser(postBody.id,postBody.name,postBody.portraitUri,postBody.deviceid,res,req);
     });
 }
 
-function loginUser(email,password,deviceId,db,res,req){
-    db.get("select * from user where email = ?",email,function(err,row){
-        if (err != null){
-            res.writeHead(500,{'Content-Type': 'text/plain','Content-Length': "Server error".length});
-            res.end("Server error");
-            console.log(err);
-        }else if (typeof row == "undefined"){
-            res.writeHead(403,{'Content-Type': 'text/plain','Content-Length': "User is not registered.".length});
-            res.end("User is not registered.");
-            console.log(email + " is not registered.");
-        }else{
-            if (password == row.passwd){
-                getToken(row.id,row.username,row.portrait,row.email,deviceId,res,req);
-            } else {
-                res.writeHead(401,{'Content-Type': 'text/plain','Content-Length': "Password error!".length});
-                res.end("Password error!");
-                console.log(email + " passwd error!");
-            }
-        }
-    })
-}
-
 var conf = require("../conf.json");
-
 var http = require('http');
 
-function getToken(userId,userName,userPortrait,email,deviceId,res,req) {
+function authUser(id,name,portrait,deviceid,res,req){
 	// Build the post string from an object
 	var post_data = qs.stringify({
-		'userId' : userId,
-		'name': userName,
-		'portraitUri': userPortrait,
-		'deviceId': deviceId
+		'userId' : id,
+		'name': name,
+		'portraitUri': portrait,
+		'deviceId': deviceid
 	});
 
 	// An object of options to indicate where to post to
@@ -76,11 +54,6 @@ function getToken(userId,userName,userPortrait,email,deviceId,res,req) {
             responseString += chunk;
         })
 		response.on('end', function () {
-            responseString.cookie = userId;
-            var obj = JSON.parse(responseString);
-            obj.cookie = email;
-            obj.userName = userName;
-            responseString = JSON.stringify(obj);
 			res.writeHead(response.statusCode, {'Content-Type': 'text/plain','Content-Length': Buffer.byteLength(responseString,'utf8')});
 			res.end(responseString);
 		});

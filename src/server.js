@@ -6,8 +6,8 @@
  * Time: 18:01
  */ 
 
-var host = '0.0.0.0';
-var port = 8080;
+var host = '0.0.0.0';//监听地址
+var port = 8080;//监听端口
 var http = require('http');
 var qs = require('querystring');
 var path = require('path');
@@ -16,16 +16,6 @@ var source = path.resolve(__dirname);
 var routes = require(path.join(source,'route.json'));
 
 var conf = require(path.join(source,'conf.json'));
-var sqlite3 = require('sqlite3').verbose();
-var db;
-if (conf.sqliteMem){
-    db = new sqlite3.Database(":memory:");
-}else {
-    db = new sqlite3.Database(path.join(basedir,"db",conf.sqlitedb));
-}
-db.serialize(function() {
-    db.run(conf.dbcreatsql);
-});
 
 http.createServer(function (req, res) { 
  	req.finish = false;
@@ -41,7 +31,7 @@ http.createServer(function (req, res) {
                     console.log(req.url + "timed out.");
                 }
  			},30000);
-            processor.process(req,res,db);
+            processor.process(req,res);
             return;
         }
     }

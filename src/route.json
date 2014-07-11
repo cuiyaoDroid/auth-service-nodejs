@@ -1,18 +1,6 @@
 {
-    "reg":{
-        "path":"/reg",
+    "auth":{
+        "path":"/auth",
         "method":"POST"
     },
-    "login":{
-        "path":"/login",
-        "method":"POST"
-    },
-    "friends":{
-        "path":"/friends",
-        "method":"POST"
-    },
-    "profile":{
-        "path":"/profile",
-        "method":"POST"
-    }
 }
