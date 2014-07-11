@@ -2,5 +2,5 @@
     "auth":{
         "path":"/auth",
         "method":"POST"
-    },
+    }
 }

@@ -2,5 +2,5 @@
     "appKey":"",
     "appSecret":"",
     "apiHost":"auth.cn.rong.io",
-    "apiPort":"80",
+    "apiPort":"80"
 }
