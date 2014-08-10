@@ -9,33 +9,32 @@ function process(req,res,db){
     });
     req.on('end', function () {
         var postBody = qs.parse(body);
-        if (postBody.id == null || postBody.name == null || postBody.deviceid == null || postBody.portraitUri == null){
+        if (postBody.id == null || postBody.name == null || postBody.portraitUri == null){
             res.writeHead(403,{'Content-Type': 'text/plain','Content-Length': "Missing parameter.".length});
             res.end("Missing parameter.");
             console.log("Missing parameter.");
             return;
         }
-        authUser(postBody.id,postBody.name,postBody.portraitUri,postBody.deviceid,res,req);
+        authUser(postBody.id,postBody.name,postBody.portraitUri,res,req);
     });
 }
 
 var conf = require("../conf.json");
 var http = require('http');
 
-function authUser(id,name,portrait,deviceid,res,req){
+function authUser(id,name,portrait,res,req){
 	// Build the post string from an object
 	var post_data = qs.stringify({
 		'userId' : id,
 		'name': name,
-		'portraitUri': portrait,
-		'deviceId': deviceid
+		'portraitUri': portrait
 	});
 
 	// An object of options to indicate where to post to
 	var post_options = {
 		host: conf.apiHost,
 		port: conf.apiPort,
-		path: '/reg.json',
+		path: '/user/getToken.json',
 		method: 'POST',
 		headers: {
 			'appKey': conf.appKey,
